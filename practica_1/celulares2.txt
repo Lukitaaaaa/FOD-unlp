@@ -1,5 +1,5 @@
 11 100.00 Samsung
-15 5 Celular promedio
+0 5 Celular promedio
 A03
 5 1000.00 Apple
 3 5 Celular gama alta

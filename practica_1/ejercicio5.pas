@@ -21,10 +21,21 @@ tres líneas consecutivas. En la primera se especifica: código de celular, el p
 marca, en la segunda el stock disponible, stock mínimo y la descripción y en la tercera
 nombre en ese orden. Cada celular se carga leyendo tres líneas del archivo
 “celulares.txt”.
+
+6. Agregar al menú del programa del ejercicio 5, opciones para:
+
+a. Añadir uno o más celulares al final del archivo con sus datos ingresados por
+teclado.
+
+b. Modificar el stock de un celular dado.
+
+c. Exportar el contenido del archivo binario a un archivo de texto denominado:
+”SinStock.txt”, con aquellos celulares que tengan stock 0.
+NOTA: Las búsquedas deben realizarse por nombre de celular.
 }
 
 
-program tp1.ejercicio5;
+program tp1.ejercicio5y6;
 
 type
 	
@@ -47,6 +58,9 @@ begin
 	writeln('2. Listar celulares con un stock menor al minimo');
 	writeln('3. Listar celulares que coinciden la descripcion y un texto');
 	writeln('4. Exportar archivo a celulares.txt');
+	writeln('5. Agregar celulares al final');
+	writeln('6. Modificar el stock de un celular dado');
+	writeln('7. Exportar celulares sin stock');
 	writeln('9. terminar');
 end;
 procedure crearArchivo(var a:archivo);
@@ -145,6 +159,87 @@ begin
 	close(arch);
 end;
 
+procedure leerCelular(var c:celular);
+begin
+	writeln('Ingrese un codigo');
+	readln(c.codigo);
+	writeln('Ingrese un precio');
+	readln(c.precio);
+	writeln('Ingrese una marca');
+	readln(c.marca);
+	writeln('Ingrese un stock minimo');
+	readln(c.stockMin);
+	writeln('Ingrese el stock diponible');
+	readln(c.stockDis);
+	writeln('Ingrese una descripcion');
+	readln(c.descripcion);
+	writeln('Ingrese un nombre');
+	readln(c.nombre);
+end;
+
+procedure agregarCelular(var a:archivo);
+var
+	c:celular;
+begin
+	reset(a);
+	leerCelular(c);
+	Seek(a, filesize(a));
+	write(a, c);
+	close(a);
+end;
+
+procedure modificarStock(var a:archivo);
+var
+	c:celular;
+	nombre:string;
+	stock: integer;
+	esta:boolean;
+begin
+	esta:=false;
+	reset(a);
+	writeln('Ingrese el nombre de un celular');
+	readln(nombre);
+	Seek(a, 0); // chequear si es necesario
+	while ((not eof(a))and(not esta)) do begin
+		read(a, c);
+		if(c.nombre = nombre)then begin
+			writeln('ingrese el nuevo stock');
+			readln(stock);
+			c.stockDis := stock;
+			Seek(a, filepos(a)-1);
+			write(a, c);
+			esta:=true
+		end;
+	end;
+	if(not esta) then
+		writeln('No se encontro un celular con ese nombre');
+	close(a);
+end;
+
+procedure exportarCelularesSinStock(var a:archivo);
+var
+	c:celular;
+	arch:text;
+begin
+	reset(a);
+	Assign(arch, 'SinStock.txt');
+	rewrite(arch);
+	writeln('exportando celulares');
+	
+	
+	while(not eof(a)) do begin
+		
+		read(a, c);
+		if(c.stockDis = 0) then begin
+			writeln(arch, c.codigo,' ', c.precio:0:2, c.marca); // IMPORTANTE PONER ESPACIOS ENTRE LOS VALORES NUMERICOS
+			writeln(arch, c.stockDis, ' ',c.stockMin, c.descripcion);
+			writeln(arch, c.nombre);
+		end;
+	end;
+	close(a);
+	close(arch);
+end;
+
 var
 	opcion:integer;
 	arc_log:archivo;
@@ -157,6 +252,9 @@ BEGIN
 			2:listarCelularesStock(arc_log);
 			3:listarCelularesDescripcion(arc_log);
 			4:exportarArchivo(arc_log);
+			5:agregarCelular(arc_log);
+			6:modificarStock(arc_log);
+			7:exportarCelularesSinStock(arc_log);
 		else writeln('Opcion invalida');
 		end;
 		mostrarMenu;
