@@ -1,0 +1,4 @@
+1 20.20 si, una manzana
+8 15 manzana
+2 20.20 si, una banana
+14 15 banana
