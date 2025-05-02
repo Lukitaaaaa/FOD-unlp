@@ -17,14 +17,14 @@ const
 type
 	provincia = record
 		nombre:string;
-		personasAlfa:integer;
+		alfabetizados:integer;
 		encuestados:integer;
 	end;
 	
 	infoAgencias = record
-		nombre = string;
+		nombre: string;
 		codigo:integer;
-		personasAlfa:integer;
+		alfabetizados:integer;
 		encuestados:integer;
 	end;
 	
@@ -42,7 +42,7 @@ begin
 	reset(carga);
 	while(not eof(carga))do begin
 		with p do begin
-			readln(carga, personasAlfa, encuestados, nombre);
+			readln(carga, alfabetizados, encuestados, nombre);
 			write(arch, p);
 		end;
 	end;
@@ -58,12 +58,11 @@ var
 	carga:text;
 begin
 	assign(carga, 'detalle.txt');
-	assign(arch, 'detalle');
 	rewrite(arch);
 	reset(carga);
 	while(not eof(carga))do begin
 		with i do begin
-			readln(carga, codigo, personasAlfa, encuestados, nombre); // no se pueden leer los booleanos
+			readln(carga, codigo, alfabetizados, encuestados, nombre); // no se pueden leer los booleanos
 			write(arch, i);
 		end;
 	end;
@@ -81,37 +80,80 @@ begin
 		dato.nombre:= fin;
 end;
 
-procedure actualizarMaestro(var am:maestro; var ad:detalle);
+procedure minimo(var ad1,ad2:detalle;var r1,r2,min:infoAgencias);
+begin
+	//writeln(r1.nombre, ' - ', r2.nombre);
+	writeln(r1.alfabetizados);
+	if(r1.nombre<r2.nombre) then begin
+		min.nombre:= r1.nombre;
+		leerDetalle(ad1,r1);
+	end
+	else begin
+		min.nombre:= r2.nombre;
+		leerDetalle(ad2,r2);
+	end;
+end;
+
+procedure actualizarMaestro(var ad1:detalle; var ad2:detalle; var am:maestro );
 var
-	i:infoAgencias;
-	p:producto;
+	r1,r2,min:infoAgencias;
+	
+	p:provincia;
 begin
 	
 	reset(am);
-	reset(ad);
+	reset(ad1);
+	reset(ad2);
 
 	
-	leerDetalle(ad, i);
-	
-	while(i.nombre <> fin)do begin
+	leerDetalle(ad1, r1);
+	leerDetalle(ad2, r2);
+	minimo(ad1,ad2,r1,r2,min);
+	while(min.nombre <> fin)do begin
 		read(am, p);
-		while(i.nombre <> p.nombre ) do
+		while(min.nombre <> p.nombre) do
 			read(am, p);
-		while(i.nombre = p.nombre) do begin
-			writeln('Actualizan el codigo: ',i.nombre);
-			p.stockDis:= p.stockDis - i.cv;
-			leerDetalle(ad, i);
+		while(min.nombre = p.nombre) do begin
+			writeln('Actualizando la provincia: ',min.nombre);
+			writeln(min.alfabetizados);
+			p.alfabetizados:= p.alfabetizados + min.alfabetizados;
+			writeln(p.alfabetizados);
+			p.encuestados:= p.encuestados + min.encuestados; 
+			minimo(ad1,ad2,r1,r2,min);
 		end;
-		seek(am, filepos(am)-1);
+		//seek(am, filepos(am)-1);
 		write(am, p);
 	end;
 	
 	close(am);
-	close(ad);
+	close(ad1);
+	close(ad2);
 end;
 
+procedure imprimirMaestro(var mae: maestro);
+var
+    s: provincia;
+begin
+    reset(mae);
+    while(not eof(mae)) do
+        begin
+            read(mae, s);
+            writeln('nombre=', s.nombre );
+        end;
+    close(mae);
+end;
+
+var
+	d1,d2:detalle;
+	mae:maestro;
 BEGIN
+	assign(d1, 'detalle1');
+	assign(d2, 'detalle2');
+	crearArchivoDetalle(d1);
 	
-	
+	crearArchivoDetalle(d2);
+	crearArchivoMaestro(mae);
+	actualizarMaestro(d1,d2,mae);
+	imprimirMaestro(mae);
 END.
 

@@ -1,0 +1,5 @@
+1 100 Roberto
+1 800 Roberto
+2 400 Jere
+3 500 Lucas
+3 200 Lucas

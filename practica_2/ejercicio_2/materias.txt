@@ -1,0 +1,6 @@
+211 2 aprobada
+211 5 aprobada
+234 6 aprobada
+343 8 aprobada
+343 0 desaprobada
+343 2 aprobada
