@@ -56,8 +56,11 @@ procedure crearArchivoDetalle(var arch:detalle);
 var
 	i:infoAgencias;
 	carga:text;
+	nombre:string;
 begin
-	assign(carga, 'detalle.txt');
+	writeln('Ingrese un nombre de un archivo de carga.txt');
+	readln(nombre);
+	assign(carga, nombre);
 	rewrite(arch);
 	reset(carga);
 	while(not eof(carga))do begin
@@ -82,14 +85,12 @@ end;
 
 procedure minimo(var ad1,ad2:detalle;var r1,r2,min:infoAgencias);
 begin
-	//writeln(r1.nombre, ' - ', r2.nombre);
-	writeln(r1.alfabetizados);
-	if(r1.nombre<r2.nombre) then begin
-		min.nombre:= r1.nombre;
+	if(r1.nombre <= r2.nombre) then begin
+		min:= r1;
 		leerDetalle(ad1,r1);
 	end
 	else begin
-		min.nombre:= r2.nombre;
+		min:= r2;
 		leerDetalle(ad2,r2);
 	end;
 end;
@@ -111,17 +112,14 @@ begin
 	minimo(ad1,ad2,r1,r2,min);
 	while(min.nombre <> fin)do begin
 		read(am, p);
-		while(min.nombre <> p.nombre) do
+		while(p.nombre <> min.nombre) do
 			read(am, p);
-		while(min.nombre = p.nombre) do begin
-			writeln('Actualizando la provincia: ',min.nombre);
-			writeln(min.alfabetizados);
+		while(p.nombre = min.nombre) do begin
 			p.alfabetizados:= p.alfabetizados + min.alfabetizados;
-			writeln(p.alfabetizados);
 			p.encuestados:= p.encuestados + min.encuestados; 
 			minimo(ad1,ad2,r1,r2,min);
 		end;
-		//seek(am, filepos(am)-1);
+		seek(am, filepos(am)-1);
 		write(am, p);
 	end;
 	
@@ -138,7 +136,7 @@ begin
     while(not eof(mae)) do
         begin
             read(mae, s);
-            writeln('nombre=', s.nombre );
+            writeln('nombre= ', s.nombre, '	alfabetizados= ',s.alfabetizados,'	encuestados= ', s.encuestados );
         end;
     close(mae);
 end;
@@ -153,6 +151,7 @@ BEGIN
 	
 	crearArchivoDetalle(d2);
 	crearArchivoMaestro(mae);
+	
 	actualizarMaestro(d1,d2,mae);
 	imprimirMaestro(mae);
 END.
