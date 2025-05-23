@@ -1,0 +1,12 @@
+1 1 0 0 0 0 Cepa1
+Berisso
+1 2 0 0 0 0 Cepa2
+Besisso
+2 1 0 0 0 0 Cepa1
+LaPlata
+2 2 0 0 0 0 Cepa2
+LaPlata
+2 3 0 0 0 0 Cepa3
+LaPlata
+3 1 0 0 0 0 Cepa1
+Ensenada
