@@ -1,0 +1,10 @@
+1 0 0 Lucas
+Gallardo
+2 0 0 Franco
+Garcia
+3 0 0 Nicolas
+Mendoza
+4 0 0 Patricio
+Rivero
+5 0 0 Joel
+Pilaszeck
