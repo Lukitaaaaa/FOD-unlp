@@ -1,0 +1,14 @@
+1 2 3 2024 23.00 Lucas
+Gallardo
+1 2 3 2024 23.00 Lucas
+Gallardo
+1 2 4 2024 23.00 Lucas
+Gallardo
+1 2 1 2025 20.00 Lucas
+Gallardo
+2 3 12 2024 45.00 Alexis
+Tobar
+2 3 12 2024 50.00 Alexis
+Tobar
+2 5 1 2025 10.00 Alexis
+Tobar
