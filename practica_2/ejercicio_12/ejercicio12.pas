@@ -105,8 +105,10 @@ begin
 	while(r.ano <> valorAlto)do begin
 		while((r.ano <> valorAlto)and(r.ano <> anoB))do
 			leerRegistro(mae, r);
-		if(r.ano <> anoB)then 
-			r.ano:= valorAlto
+		if(r.ano <> anoB)then begin
+			r.ano:= valorAlto;
+			writeln('Ano no encontrado')
+		end
 		else begin
 			writeln('ano: ', r.ano);
 			totalAno:=0;
