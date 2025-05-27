@@ -1,0 +1,23 @@
+1 100 0 Buenos Aires
+2 100 0 Catamarca
+3 100 0 Chaco
+4 100 0 Chubut
+5 100 0 Cordoba
+6 100 0 Corrientes
+7 100 0 Entre Rios
+8 100 0 Formosa
+9 100 0 Jujuy
+10 100 0 La Pampa
+11 100 0 La Rioja
+12 100 0 Mendoza
+13 100 0 Misiones
+14 100 0 Neuquen
+15 100 0 Rio Negro
+16 100 0 Salta
+17 100 0 San Juan
+18 100 0 San Luis
+19 100 0 Santa Cruz
+20 100 0 Santa Fe
+21 100 0 Santiago del Estero
+22 100 0 Tierra del Fuego
+23 100 0 Tucuman
