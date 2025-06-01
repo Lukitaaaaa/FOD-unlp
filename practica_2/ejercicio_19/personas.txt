@@ -1,0 +1,1 @@
+Partida=3 Nombre=lucas Apellido=gallardo Direccion=11 MatNacimiento=12d NAMadre=lola lola DNIMadre=-15320 NAPadre=fede deef DNIPadre=-15337
