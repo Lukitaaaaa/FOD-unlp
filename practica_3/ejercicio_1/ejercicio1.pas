@@ -1,32 +1,13 @@
 {
-3. Realizar un programa que presente un menú con opciones para:
-a. Crear un archivo de registros no ordenados de empleados y completarlo con
-datos ingresados desde teclado. De cada empleado se registra: número de
-empleado, apellido, nombre, edad y DNI. Algunos empleados se ingresan con
-DNI 00. La carga finaliza cuando se ingresa el String ‘fin’ como apellido.
-b. Abrir el archivo anteriormente generado y
-i. Listar en pantalla los datos de empleados que tengan un nombre o apellido
-determinado, el cual se proporciona desde el teclado.
-ii. Listar en pantalla los empleados de a uno por línea.
-iii. Listar en pantalla los empleados mayores de 70 años, próximos a jubilarse.
-NOTA: El nombre del archivo a crear o utilizar debe ser proporcionado por el usuario.
-  
-4. Agregar al menú del programa del ejercicio 3, opciones para:
-a. Añadir uno o más empleados al final del archivo con sus datos ingresados por
-teclado. Tener en cuenta que no se debe agregar al archivo un empleado con
-un número de empleado ya registrado (control de unicidad).
-b. Modificar la edad de un empleado dado.
-c. Exportar el contenido del archivo a un archivo de texto llamado
-“todos_empleados.txt”.
-d. Exportar a un archivo de texto llamado: “faltaDNIEmpleado.txt”, los empleados
-que no tengan cargado el DNI (DNI en 00).
+Modificar el ejercicio 4 de la práctica 1 (programa de gestión de empleados),
+agregándole una opción para realizar bajas copiando el último registro del archivo en
+la posición del registro a borrar y luego truncando el archivo en la posición del último
+registro de forma tal de evitar duplicados.
 
-NOTA: Las búsquedas deben realizarse por número de empleado.
 }
 
 
-program tp1.ejercicio3y4;
-
+program tp3.ejercicio1;
 
 type
 
@@ -42,7 +23,6 @@ type
 procedure mostrarMenu;
 begin
 	writeln('=== MENU ===');
-	writeln('0. Dar de baja');
 	writeln('1. Crear archivo');
 	writeln('2. Listar empleados con un nombre determinado');
 	writeln('3. Listar empleados');
@@ -231,33 +211,6 @@ begin
 	close(archDNI);
 end;
 
-procedure darDeBaja(var a:archivo);
-var
-    cod: integer;
-    ultEmp, e: empleado;
-begin
-    reset(a);
-    writeln('Ingrese el codigo del empleado a eliminar');
-    readln(cod);
-    seek(a, fileSize(a)-1);
-    read(a, ultEmp);
-    seek(a, 0);
-    read(a, e);
-    while(not eof(a) and (e.num <> cod)) do
-        read(a, e);
-    if(e.num = cod) then begin
-		seek(a, filePos(a)-1);
-		write(a, ultEmp);
-		seek(a, fileSize(a)-1);
-		truncate(a);
-		writeln('Se encontro el empleado con codigo ', cod , ' y se realizo la baja correctamente');
-	end 
-	else begin	
-		writeln('No se encontro el empleado con codigo ', cod , ' y no se realizo ninguna baja');
-	end;
-    close(a);
-end;
-
 var
 	arc_log: archivo;
 	arc_fis:string;
@@ -267,7 +220,6 @@ BEGIN
 	readln(opcion);
 	while(opcion<>9) do begin
 		case opcion of
-			0:darDebaja(arc_log);
 			1:crearArchivo(arc_log, arc_fis);
 			2:listarEmpleadoDeterminado(arc_log);
 			3:listarEmpleados(arc_log);
@@ -281,17 +233,4 @@ BEGIN
 		mostrarMenu;
 		readln(opcion);
 	end;
-	//writeln('Ingrese nombre del archivo');
-	//readln(arc_fis); // SE LE PONE NOMBRE AL ARCHIVO
-	//assign(arc_log, arc_fis); // SE RELACIONA arc_log y arc_fis
-	
-	//rewrite(arc_log); // SE CREA EL ARCHIVO
-	//agregarEmpleados(arc_log);
-	
-	//listarEmpleadoDeterminado(arc_log);
-	//listarEmpleados(arc_log);
-	//empleadosMayores(arc_log);
-	
-	//agregarEmpleados(arc_log);
 END.
-
