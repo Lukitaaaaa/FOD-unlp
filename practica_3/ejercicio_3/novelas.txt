@@ -1,0 +1,6 @@
+Registro cabecera: Codigo=0 Genero= Nombre= Duracion=0 Director= Precio=0.00
+Codigo=8 Genero=8 Nombre=8 Duracion=8 Director=8 Precio=8.00
+Codigo=2 Genero=2 Nombre=2 Duracion=2 Director=2 Precio=2.00
+Codigo=2 Genero=3 Nombre=3 Duracion=3 Director=3 Precio=3.00
+Codigo=9 Genero=9 Nombre=9 Duracion=9 Director=9 Precio=9.00
+Codigo=6 Genero=6 Nombre=6 Duracion=6 Director=6 Precio=6.00
